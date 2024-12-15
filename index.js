@@ -14,18 +14,19 @@ const app = express()
 const port = 3000
 
 let urlMap = new Map()
-if(fs.existsSync())LoadURLs()
-
 let urlJsonPath = path.resolve("./url.json")
+if(fs.existsSync(urlJsonPath))LoadURLs()
+
 function LoadURLs(){
-    let object = JSON.parse(fs.readFileSync(urlJsonPath, "utf-8"))
+    let obj = JSON.parse(fs.readFileSync(urlJsonPath, "utf-8"))
+    urlMap = new Map(Object.entries(obj));
 }
 function SaveURLs(){
-
+    let obj = Object.fromEntries(urlMap);
+    fs.writeFileSync(urlJsonPath, JSON.stringify(obj), "utf-8")
 }
-
-// TODO: Change this to be an environment variable
-const baseURL = "localhost:"+port
+setInterval(SaveURLs, 10*1000)
+SaveURLs()
 
 const randomNum = (max=100)=>Math.floor(Math.random()*max)
 app.use((req, res, next)=>{

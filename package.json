@@ -12,5 +12,8 @@
   "dependencies": {
     "express": "^4.21.2",
     "express-formidable": "^1.2.0"
+  },
+  "nodemonConfig":{
+    "ignore": ["url.json"]
   }
 }
