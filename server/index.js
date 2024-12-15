@@ -9,7 +9,7 @@ import express from "express";
 // Local Imports
 import { pages } from './pages.js';
 import {urlMap, recentlyCreatedLinksHTML, ValidateLink} from './url.js'
-import { randomNum } from './util.js';
+import { randomNum, genRanString } from './util.js';
 
 // Setup express server
 const app = express();
@@ -53,10 +53,8 @@ app.get("/", (req, res) => {
 
 
 
-const genRanString = (size) =>
-  [...Array(size)]
-    .map(() => Math.floor(Math.random() * 36).toString(36))
-    .join("");
+
+
 function ShortenLink(linkA, linkB, chance) {
   let code = undefined;
   while (code == undefined || urlMap.has(code)) {
