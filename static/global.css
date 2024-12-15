@@ -1,0 +1,7 @@
+input[type="number"]{
+    width:165px;
+}
+a, button{
+    color:blue;
+    text-decoration: underline;
+}

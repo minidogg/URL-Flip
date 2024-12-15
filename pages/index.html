@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DualShortener</title>
+    <link rel="stylesheet" href="/global.css">
+</head>
+<body>
+    <form method="POST" action="/api/shorten">
+        <input type="text" maxlength="300" placeholder="Link A" name="linkA">
+        <br>
+        <input type="text" maxlength="300" placeholder="Link B" name="linkB">
+        <br>
+        <input type="number" min="0" max="100" value="50" placeholder="Chance to use link B" name="chance">
+        <br>
+        <input type="submit" value="Shorten">
+    </form>
+</body>
+</html>

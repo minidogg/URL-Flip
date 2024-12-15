@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect</title>
+</head>
+<body>
+    <a href="REDIRECT_LINK">Proceed</a>
+
+    <script>
+        (function(){
+            let a = document.querySelector("a")
+            let link = a.href
+            a.href=""
+            a.addEventListener("click", function(ev){
+                ev.preventDefault()
+                
+                window.location.assign(link)
+
+                return;
+            })
+        })()
+    </script>
+</body>
+</html>
