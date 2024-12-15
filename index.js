@@ -48,7 +48,7 @@ function SaveURLs(){
     let obj = Object.fromEntries(urlMap);
     fs.writeFileSync(urlJsonPath, JSON.stringify(obj), "utf-8")
 }
-setInterval(SaveURLs, 1*60*1000)
+setInterval(SaveURLs, 10*1000)
 SaveURLs()
 
 const randomNum = (max=100)=>Math.floor(Math.random()*max)

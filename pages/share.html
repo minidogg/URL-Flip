@@ -4,9 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Share Link</title>
+
+    <link rel="stylesheet" href="/global.css">
 </head>
 <body>
-    <h1>URL Shortened Successfully!</h1>
-    <a href="/SHARE_LINK">SHARE_LINK</a>
+    <div id="container">
+        <h1>URL Shortened Successfully!</h1>
+        <a href="/SHARE_LINK" class="shareLink">SHARE_LINK</a>
+        <hr>
+        <a href="/">OR shorten your own URL</a>
+    </div>
+
+    <script>
+        let a = document.querySelector("a")
+        a.textContent = "Your link to share: "+a.href
+    </script>
 </body>
 </html>
