@@ -121,7 +121,7 @@ function ShortenLink(linkA, linkB, chance) {
 }
 
 app.use(formidable());
-app.post("/api/shorten", (req, res) => {
+app.post("/shorten", (req, res) => {
   if (!ValidateLink(req.fields.linkA) || !ValidateLink(req.fields.linkB)) {
     res.status(500);
     res.send(pages.error.join("An invalid link was provided!"));
