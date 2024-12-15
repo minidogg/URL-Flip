@@ -2,10 +2,30 @@ const path = require("path")
 const fs = require("fs")
 
 // We don't need frameworks or templating engines where we are going.
-let errorHTML = fs.readFileSync(path.resolve("./pages/error.html"), "utf-8").split("ERROR") // We split it at ERROR so then we can do errorHTML.join(errorMsg)
-let shareHTML = fs.readFileSync(path.resolve("./pages/share.html"), "utf-8").split("SHARE_LINK")
-let redirectHTML = fs.readFileSync(path.resolve("./pages/redirect.html"), "utf-8").split("REDIRECT_LINK")
+const pages = {
+    error: "",
+    share: "",
+    redirect: ""
+}
 
+
+function UpdateDyanmicPages(){
+    pages.error = fs.readFileSync(path.resolve("./pages/error.html"), "utf-8").split("ERROR") // We split it at ERROR so then we can do errorHTML.join(errorMsg)
+    pages.share = fs.readFileSync(path.resolve("./pages/share.html"), "utf-8").split("SHARE_LINK")
+    pages.redirect = fs.readFileSync(path.resolve("./pages/redirect.html"), "utf-8").split("REDIRECT_LINK")
+}
+let havePagesUpdated = false
+fs.watch("./pages", {"recursive": true}, ()=>{
+    console.log("Pages updated")
+    havePagesUpdated = true
+    
+})
+setInterval(()=>{
+    if(havePagesUpdated==true){
+        havePagesUpdated = false
+        UpdateDyanmicPages()
+    }
+}, 1000)
 
 const formidable = require('express-formidable');
 const express = require('express')
@@ -37,13 +57,13 @@ app.use((req, res, next)=>{
     let url = urlMap.get(req.path.replace("/", ""))
     if(!url){
         res.status(404)
-        res.send(errorHTML.join("The shorten URL you requested is invalid or no longer exists!"))
+        res.send(pages.error.join("The shorten URL you requested is invalid or no longer exists!"))
         return;
     }
     let pickedUrl = url[randomNum(100)>=url[2]?1:0]
 
     res.set("Cache-Control", "max-age=60")
-    res.send(redirectHTML.join(pickedUrl))
+    res.send(pages.redirect.join(pickedUrl))
 })
 
 app.use(express.static("./static"))
@@ -77,22 +97,22 @@ app.use(formidable());
 app.post("/api/shorten", (req, res)=>{
     if(!ValidateLink(req.fields.linkA)||!ValidateLink(req.fields.linkB)){
         res.status(500)
-        res.send(errorHTML.join("An invalid link was provided!"))
+        res.send(pages.error.join("An invalid link was provided!"))
         return;
     }
     if(req.fields.chance>100||req.fields.chance<0){
         res.status(500)
-        res.send(errorHTML.join("Invalid form body provided!"))
+        res.send(pages.error.join("Invalid form body provided!"))
         return;
     }
 
     let shortenedLink = ShortenLink(req.fields.linkA, req.fields.linkB, req.fields.chance)
     if(shortenedLink==undefined){
         res.status(500)
-        res.send(errorHTML.join("Something went wrong when shortening your URL!"))
+        res.send(pages.error.join("Something went wrong when shortening your URL!"))
         return;
     }
-    res.send(shareHTML.join(shortenedLink))
+    res.send(pages.share.join(shortenedLink))
 })
 
 
