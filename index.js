@@ -26,14 +26,15 @@ function UpdateDyanmicPages() {
 }
 UpdateDyanmicPages();
 let havePagesUpdated = false;
-fs.watch("./pages", { recursive: true }, () => {
-  console.log("Pages updated");
+fs.watch("./pages", { recursive: true }, (eventName, fileName) => {
+  console.log("Page updated: " + fileName);
   havePagesUpdated = true;
 });
 setInterval(() => {
   if (havePagesUpdated == true) {
     havePagesUpdated = false;
     UpdateDyanmicPages();
+    console.log("Updated pages");
   }
 }, 1000);
 
@@ -95,12 +96,13 @@ app.get("/", (req, res) => {
 
 function ValidateLink(link) {
   if (link.length > 300) return false;
-  try {
-    new URL(link);
-    return true;
-  } catch {
-    return false;
-  }
+  return /((https?):\/\/)?.*\..*\/.*/.test(link);
+  // try{
+  //     new URL(link)
+  //     return true;
+  // }catch{
+  //     return false
+  // }
 }
 
 const genRanString = (size) =>

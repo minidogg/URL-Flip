@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js --watch=index.js"
   },
   "keywords": [],
   "author": "",
@@ -13,7 +14,12 @@
     "express": "^4.21.2",
     "express-formidable": "^1.2.0"
   },
-  "nodemonConfig":{
-    "ignore": ["url.json"]
+  "nodemonConfig": {
+    "ignore": [
+      "url.json"
+    ]
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
