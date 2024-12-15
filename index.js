@@ -3,22 +3,25 @@ const fs = require("fs")
 
 // We don't need frameworks or templating engines where we are going.
 const pages = {
+    index: "",
     error: "",
     share: "",
-    redirect: ""
+    redirect: "",
 }
 
 
 function UpdateDyanmicPages(){
+    pages.index = [fs.readFileSync(path.resolve("./pages/index.html"), "utf-8")]
+
     pages.error = fs.readFileSync(path.resolve("./pages/error.html"), "utf-8").split("ERROR") // We split it at ERROR so then we can do errorHTML.join(errorMsg)
     pages.share = fs.readFileSync(path.resolve("./pages/share.html"), "utf-8").split("SHARE_LINK")
     pages.redirect = fs.readFileSync(path.resolve("./pages/redirect.html"), "utf-8").split("REDIRECT_LINK")
 }
+UpdateDyanmicPages()
 let havePagesUpdated = false
 fs.watch("./pages", {"recursive": true}, ()=>{
     console.log("Pages updated")
     havePagesUpdated = true
-    
 })
 setInterval(()=>{
     if(havePagesUpdated==true){
@@ -45,7 +48,7 @@ function SaveURLs(){
     let obj = Object.fromEntries(urlMap);
     fs.writeFileSync(urlJsonPath, JSON.stringify(obj), "utf-8")
 }
-setInterval(SaveURLs, 10*1000)
+setInterval(SaveURLs, 1*60*1000)
 SaveURLs()
 
 const randomNum = (max=100)=>Math.floor(Math.random()*max)
@@ -68,7 +71,7 @@ app.use((req, res, next)=>{
 
 app.use(express.static("./static"))
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve("./pages/index.html"))
+  res.send(pages.index.join(""))
 })
 
 function ValidateLink(link){
