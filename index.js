@@ -20,14 +20,15 @@ function UpdateDyanmicPages(){
 }
 UpdateDyanmicPages()
 let havePagesUpdated = false
-fs.watch("./pages", {"recursive": true}, ()=>{
-    console.log("Pages updated")
+fs.watch("./pages", {"recursive": true}, (eventName, fileName)=>{
+    console.log("Page updated: "+fileName)
     havePagesUpdated = true
 })
 setInterval(()=>{
     if(havePagesUpdated==true){
         havePagesUpdated = false
         UpdateDyanmicPages()
+        console.log("Updated pages")
     }
 }, 1000)
 
