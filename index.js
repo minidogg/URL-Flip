@@ -96,7 +96,7 @@ app.get("/", (req, res) => {
 
 function ValidateLink(link) {
   if (link.length > 300) return false;
-  return /((https?):\/\/)?.*\..*\/.*/.test(link);
+  return /((https?):\/\/)?.*\..*(\/.*)?/.test(link);
   // try{
   //     new URL(link)
   //     return true;
