@@ -1,0 +1,1 @@
+I got bored and made a URL shortener mostly in an hour.
