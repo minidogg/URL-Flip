@@ -5,6 +5,7 @@
 
 body{
     background-color:rgb(83, 83, 83);
+    margin:0;
 }
 h1{
     text-align: center;
@@ -39,4 +40,22 @@ input{
     background-color: gray;
     padding:30px;
     border-radius:20px;
+}
+
+.redirect{
+    width:100vw;
+    background-color:gray;
+    display:flex;
+    justify-content: space-between;
+    padding:15px 0px;
+    align-items: center;
+    flex-direction: column;
+}
+.redirect>div>span{
+    font-size:2em;
+}
+.redirect>div{
+    display:flex;
+    justify-content: space-between;
+    width:100%;
 }
