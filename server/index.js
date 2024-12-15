@@ -15,24 +15,34 @@ import { randomNum } from './util.js';
 const app = express();
 const port = 3000;
 
+// Handling for shortened URLs 
 app.use((req, res, next) => {
+  // Check if the URL starts with "q" because if it doesn't that means it isn't a shortened URL. 
   if (req.path[1] != "q") {
     next();
     return;
   }
+
+  // Attempt to get the URL from the Map so we can use its data to decide what to respond with.  
   let url = urlMap.get(req.path.replace("/", ""));
+
+  // Check if the URL is undefined and send an error to the client so we don't create any vulnerabilities.
   if (!url) {
-    res.status(404);
+    res.status(404); // Set status to 404 so browsers know that the request failed
     res.send(
+      // We join pages.error because it is an array that when joined with an error message, will have an error message appear on its HTML.
       pages.error.join(
         "The shorten URL you requested is invalid or no longer exists!"
       )
     );
     return;
   }
+  // We generate a random number and then check if it's bigger than the chance which is in index 2
   let pickedUrl = url[randomNum(100) >= url[2] ? 1 : 0];
 
+  // Set cache to one minute so someone doesn't lose the link to an accidental refresh.
   res.set("Cache-Control", "max-age=60");
+  // We send a joined pages.redirect because pages.redirect is an array that when joined with a URL, will have the URL appear in its HTML
   res.send(pages.redirect.join(pickedUrl));
 });
 
