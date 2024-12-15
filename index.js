@@ -11,7 +11,7 @@ const pages = {
 
 
 function UpdateDyanmicPages(){
-    pages.index = [fs.readFileSync(path.resolve("./pages/index.html"), "utf-8")]
+    pages.index = fs.readFileSync(path.resolve("./pages/index.html"), "utf-8").split("LAST_LINKS")
 
     pages.error = fs.readFileSync(path.resolve("./pages/error.html"), "utf-8").split("ERROR") // We split it at ERROR so then we can do errorHTML.join(errorMsg)
     pages.share = fs.readFileSync(path.resolve("./pages/share.html"), "utf-8").split("SHARE_LINK")
@@ -41,6 +41,9 @@ let urlMap = new Map()
 let urlJsonPath = path.resolve("./url.json")
 if(fs.existsSync(urlJsonPath))LoadURLs()
 
+let recentlyCreatedLinks = []
+let recentlyCreatedLinksHTML = ""
+
 function LoadURLs(){
     let obj = JSON.parse(fs.readFileSync(urlJsonPath, "utf-8"))
     urlMap = new Map(Object.entries(obj));
@@ -48,6 +51,9 @@ function LoadURLs(){
 function SaveURLs(){
     let obj = Object.fromEntries(urlMap);
     fs.writeFileSync(urlJsonPath, JSON.stringify(obj), "utf-8")
+
+    recentlyCreatedLinks = recentlyCreatedLinks.slice(0, 10)
+    recentlyCreatedLinksHTML = recentlyCreatedLinks.map(e=>`<a href="/${e}">/${e}</a>`).join("")
 }
 setInterval(SaveURLs, 10*1000)
 SaveURLs()
@@ -72,7 +78,7 @@ app.use((req, res, next)=>{
 
 app.use(express.static("./static"))
 app.get('/', (req, res) => {
-  res.send(pages.index.join(""))
+  res.send(pages.index.join(recentlyCreatedLinksHTML))
 })
 
 function ValidateLink(link){
@@ -116,6 +122,7 @@ app.post("/api/shorten", (req, res)=>{
         res.send(pages.error.join("Something went wrong when shortening your URL!"))
         return;
     }
+    recentlyCreatedLinks.unshift(shortenedLink)
     res.send(pages.share.join(shortenedLink))
 })
 
