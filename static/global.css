@@ -144,3 +144,9 @@ a.navItem{
   font-size: 1.8rem;
   text-decoration: underline;
 }
+
+.recentLinks{
+  margin-top: 20px;
+  display:flex;
+  flex-direction:column;
+}
