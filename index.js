@@ -96,9 +96,7 @@ app.get("/", (req, res) => {
 
 function ValidateLink(link) {
   if (link.length > 300) return false;
-  return /(https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\/[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?/.test(
-    link
-  );
+  return /((https?):\/\/)?.*\..*(\/.*)?/.test(link);
 }
 
 const genRanString = (size) =>
