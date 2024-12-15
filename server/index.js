@@ -46,7 +46,10 @@ app.use((req, res, next) => {
   res.send(pages.redirect.join(pickedUrl));
 });
 
+// Send Static Files
 app.use(express.static("./static"));
+
+// Send the index.html
 app.get("/", (req, res) => {
   res.send(pages.index.join(recentlyCreatedLinksHTML));
 });
