@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DualShortener</title>
-    <link rel="stylesheet" href="/global.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/global.css" />
+  </head>
+  <body>
     <h1>Dual Shortener</h1>
-    <form method="POST" action="/api/shorten" class="shortenForm">
-        <input type="text" maxlength="300" placeholder="Link A" name="linkA">
-        <br>
-        <input type="text" maxlength="300" placeholder="Link B" name="linkB">
-        <br>
-        <input type="number" min="0" max="100" value="50" placeholder="Chance to use link B" name="chance">
-        <br>
-        <input type="submit" value="Shorten">
+    <form method="POST" action="/api/shorten" class="container">
+      <input type="text" maxlength="300" placeholder="Link A" name="linkA" />
+      <br />
+      <input type="text" maxlength="300" placeholder="Link B" name="linkB" />
+      <br />
+      <input
+        type="number"
+        min="0"
+        max="100"
+        value="50"
+        placeholder="Chance to use link B"
+        name="chance"
+      />
+      <br />
+      <input type="submit" value="Shorten" />
     </form>
-    <div id="container" style="margin-top:20px;">
-        <h2>Recent Shortened URLs</h2>
-        LAST_LINKS
+    <div class="container" style="margin-top: 20px">
+      <h2>Recent Shortened URLs</h2>
+      LAST_LINKS
     </div>
-</body>
+  </body>
 </html>
