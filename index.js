@@ -130,7 +130,7 @@ app.post("/shorten", (req, res) => {
   let shortenedLink = ShortenLink(
     req.fields.linkA,
     req.fields.linkB,
-    req.fields.chance
+    Math.ceil(req.fields.chance)
   );
   if (shortenedLink == undefined) {
     res.status(500);
