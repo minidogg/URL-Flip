@@ -64,7 +64,7 @@ function ShortenLink(linkA, linkB, chance) {
     code = genRanString(8);
   }
   code = "q" + code;
-  urlMap.set(code, [linkA, linkB, chance]);
+  urlMap.set(code, [linkA, linkB, chance, Date.now()]);
 
   return code;
 }
