@@ -1,5 +1,9 @@
-const path = require("path");
-const fs = require("fs");
+// Imports
+import path from 'path';
+import fs from 'fs';
+
+import formidable from "express-formidable";
+import express from "express";
 
 // We don't need frameworks or templating engines where we are going.
 const pages = {
@@ -46,9 +50,6 @@ setInterval(() => {
   }
 }, 1000);
 
-const formidable = require("express-formidable");
-const express = require("express");
-const { url } = require("inspector");
 const app = express();
 const port = 3000;
 
