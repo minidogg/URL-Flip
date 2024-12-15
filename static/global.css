@@ -128,3 +128,19 @@ hr {
   border: 1px solid #44475a;
   margin: 20px 0;
 }
+
+nav{
+  position:fixed;
+  top:0;
+  display:flex;
+  width:100vw;
+  height:fit-content;
+  align-items: center;
+}
+.navItem{
+  margin: 0px 10px;
+}
+a.navItem{
+  font-size: 1.8em;
+  text-decoration: underline;
+}
