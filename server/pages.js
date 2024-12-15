@@ -1,3 +1,7 @@
+// Built-In Imports
+import path from 'path';
+import fs from 'fs';
+
 // We don't need frameworks or templating engines where we are going.
 export const pages = {
   index: "",

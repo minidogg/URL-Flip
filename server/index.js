@@ -8,34 +8,13 @@ import express from "express";
 
 // Local Imports
 import { pages } from './pages.js';
+import {urlMap, recentlyCreatedLinksHTML, ValidateLink} from './url.js'
+import { randomNum } from './util.js';
 
+// Setup express server
 const app = express();
 const port = 3000;
 
-let urlMap = new Map();
-let urlJsonPath = path.resolve("./url.json");
-if (fs.existsSync(urlJsonPath)) LoadURLs();
-
-let recentlyCreatedLinks = [];
-let recentlyCreatedLinksHTML = "";
-
-function LoadURLs() {
-  let obj = JSON.parse(fs.readFileSync(urlJsonPath, "utf-8"));
-  urlMap = new Map(Object.entries(obj));
-}
-function SaveURLs() {
-  let obj = Object.fromEntries(urlMap);
-  fs.writeFileSync(urlJsonPath, JSON.stringify(obj), "utf-8");
-
-  recentlyCreatedLinks = recentlyCreatedLinks.slice(0, 10);
-  recentlyCreatedLinksHTML = recentlyCreatedLinks
-    .map((e) => `<a href="/${e}">/${e}</a>`)
-    .join("");
-}
-setInterval(SaveURLs, 10 * 1000);
-SaveURLs();
-
-const randomNum = (max = 100) => Math.floor(Math.random() * max);
 app.use((req, res, next) => {
   if (req.path[1] != "q") {
     next();
@@ -62,10 +41,7 @@ app.get("/", (req, res) => {
   res.send(pages.index.join(recentlyCreatedLinksHTML));
 });
 
-function ValidateLink(link) {
-  if (link.length > 300) return false;
-  return /(https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\/[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?/.test(link);
-}
+
 
 const genRanString = (size) =>
   [...Array(size)]
@@ -111,6 +87,7 @@ app.post("/shorten", (req, res) => {
   res.send(pages.share.join(shortenedLink));
 });
 
+// Start the express server
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
