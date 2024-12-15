@@ -1,3 +1,6 @@
+*{
+    font-family: "Comic Sans MS", "Comic Sans", Arial, Helvetica, sans-serif;
+}
 input[type="number"]{
     width:165px;
 }
