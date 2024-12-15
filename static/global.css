@@ -50,6 +50,7 @@ input{
     padding:15px 0px;
     align-items: center;
     flex-direction: column;
+    height:20vh;
 }
 .redirect>div>span{
     font-size:2em;
@@ -58,4 +59,10 @@ input{
     display:flex;
     justify-content: space-between;
     width:100%;
+}
+
+.advertise{
+    width:100vw;
+    border:none;
+    height:70vh;
 }

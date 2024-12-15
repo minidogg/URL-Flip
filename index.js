@@ -16,6 +16,7 @@ function UpdateDyanmicPages(){
     pages.error = fs.readFileSync(path.resolve("./pages/error.html"), "utf-8").split("ERROR") // We split it at ERROR so then we can do errorHTML.join(errorMsg)
     pages.share = fs.readFileSync(path.resolve("./pages/share.html"), "utf-8").split("SHARE_LINK")
     pages.redirect = fs.readFileSync(path.resolve("./pages/redirect.html"), "utf-8").split("REDIRECT_LINK")
+
 }
 UpdateDyanmicPages()
 let havePagesUpdated = false
