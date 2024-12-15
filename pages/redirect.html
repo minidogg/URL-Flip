@@ -14,7 +14,7 @@
       <!-- Why must this header torture me and nt be center -->
       <h1>URL Flip</h1>
       <div>
-        <a href="REDIRECT_LINK">Proceed to link</a>
+        <a href="REDIRECT_LINK" class="proceedLink">Proceed to link</a>
         <span>OR</span>
         <a href="/">Shorten your OWN link</a>
       </div>
@@ -25,7 +25,7 @@
     <script>
       (function () {
         document.querySelector("script").remove();
-        let a = document.querySelector("a");
+        let a = document.querySelector(".proceedLink");
         let link = a.href;
         a.href = "";
         a.addEventListener("click", function (ev) {
