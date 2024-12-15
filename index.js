@@ -84,12 +84,13 @@ app.get('/', (req, res) => {
 
 function ValidateLink(link){
     if(link.length>300)return false;
-    try{
-        new URL(link)
-        return true;
-    }catch{
-        return false
-    }
+    return /((https?):\/\/)?.*\..*\/.*/.test(link)
+    // try{
+    //     new URL(link)
+    //     return true;
+    // }catch{
+    //     return false
+    // }
 }
 
 const genRanString = size => [...Array(size)].map(() => Math.floor(Math.random() * 36).toString(36)).join('');
