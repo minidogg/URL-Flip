@@ -12,10 +12,11 @@ export const pages = {
 };
 
 let navHTML = ""
-function getPageHTML(filePath){
+function getPageHTML(filePath, splitText){
   return fs
   .readFileSync(path.resolve(filePath), "utf-8")
   .replace("<nav />", navHTML)
+  .split(splitText)
 }
 function UpdateDyanmicPages() {
   navHTML = fs.readFileSync(
@@ -23,15 +24,15 @@ function UpdateDyanmicPages() {
     "utf-8"
   );
 
-  pages.index = getPageHTML("./pages/index.html").split("LAST_LINKS");
+  pages.index = getPageHTML("./pages/index.html", "LAST_LINKS");
 
-  pages.error = getPageHTML("./pages/error.html").split("[Error-Code]");
+  pages.error = getPageHTML("./pages/error.html", "[Error-Code]");
 
-  pages.share = getPageHTML("./pages/share.html").split("SHARE_LINK");
+  pages.share = getPageHTML("./pages/share.html", "SHARE_LINK");
 
-  pages.redirect = getPageHTML("./pages/redirect.html").split("REDIRECT_LINK");
+  pages.redirect = getPageHTML("./pages/redirect.html", "REDIRECT_LINK");
 
-  pages.advertise = getPageHTML("./pages/advertise.html").split("LAST_LINKS");
+  pages.advertise = getPageHTML("./pages/advertise.html", "LAST_LINKS");
 }
 
 // Update the pages for first time
