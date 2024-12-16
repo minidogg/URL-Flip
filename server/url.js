@@ -6,7 +6,7 @@ export let urlMap = new Map();
 let urlJsonPath = path.resolve("./url.json");
 if (fs.existsSync(urlJsonPath)) LoadURLs();
 
-let recentlyCreatedLinks = [];
+export let recentlyCreatedLinks = [];
 export let recentlyCreatedLinksHTML = "";
 
 function LoadURLs() {

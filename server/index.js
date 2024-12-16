@@ -8,7 +8,7 @@ import express from "express";
 
 // Local Imports
 import { pages } from './pages.js';
-import {urlMap, recentlyCreatedLinksHTML, ValidateLink} from './url.js'
+import {urlMap, recentlyCreatedLinksHTML, recentlyCreatedLinks, ValidateLink} from './url.js'
 import { randomNum, genRanString } from './util.js';
 
 // Setup express server
@@ -38,7 +38,7 @@ app.use((req, res, next) => {
     return;
   }
   // We generate a random number and then check if it's bigger than the chance which is in index 2
-  let pickedUrl = url[randomNum(100) >= url[2] ? 1 : 0];
+  let pickedUrl = url[url[2]>0 && randomNum(100) >= url[2] ? 1 : 0];
 
   // Set cache to one minute so someone doesn't lose the link to an accidental refresh.
   res.set("Cache-Control", "max-age=60");
@@ -71,17 +71,17 @@ function ShortenLink(linkA, linkB, chance) {
 
 app.use(formidable());
 app.post("/shorten", (req, res) => {
-  if (!ValidateLink(req.fields.linkA) || !ValidateLink(req.fields.linkB)) {
+  if (!ValidateLink(req.fields.linkA) || (req.fields.linkB!="" &&! ValidateLink(req.fields.linkB))) {
     res.status(500);
     res.send(pages.error.join("An invalid link was provided!"));
     return;
   }
+  if(req.fields.linkB=="")req.fields.chance = 0
   if (req.fields.chance > 100 || req.fields.chance < 0) {
     res.status(500);
     res.send(pages.error.join("Invalid form body provided!"));
     return;
   }
-
   let shortenedLink = ShortenLink(
     req.fields.linkA,
     req.fields.linkB,

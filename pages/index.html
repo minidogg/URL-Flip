@@ -10,10 +10,14 @@
     <nav />
 
     <form method="POST" action="/shorten" class="container">
-      <input type="text" maxlength="300" placeholder="Link A" name="linkA" />
+      <h2>Shorten a URL</h2>
+      <label>Link A*</label>
+      <input type="text" required maxlength="300" placeholder="Link A" name="linkA" />
       <br />
+      <label>Link B</label>
       <input type="text" maxlength="300" placeholder="Link B" name="linkB" />
       <br />
+      <label>Chance to use link B</label>
       <input
         type="number"
         min="0"
