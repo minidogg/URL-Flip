@@ -31,11 +31,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <script>
+      try{
+      let a = document.querySelector(".shareLink").querySelector("a")
       let qrcodeEl = document.getElementById("qrcode");
       var typeNumber = 4;
       var errorCorrectionLevel = "L";
       var qr = qrcode(typeNumber, errorCorrectionLevel);
+
       qr.addData(a.href);
+
       qr.make();
       qrcodeEl.innerHTML = qr.createImgTag();
       qrcodeEl.querySelector("img").classList.add("linkQrcode");
@@ -51,6 +55,9 @@
         document.body.removeChild(link);
       });
       downloadButton.style.display = "block";
+    }catch(err){
+
+    }
     </script>
   </body>
 </html>
