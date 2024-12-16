@@ -31,6 +31,6 @@ export function FixURL(link){
 }
 
 export function ValidateLink(link) {
-    if (link.length > 300) return false;
+    if (link.length > 1024) return false;
     return /(https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\/[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?/.test(link);
 }
