@@ -32,7 +32,7 @@ app.use((req, res, next) => {
     res.send(
       // We join pages.error because it is an array that when joined with an error message, will have an error message appear on its HTML.
       pages.error.join(
-        "The shorten URL you requested is invalid or no longer exists!"
+        "The shortened URL you requested is invalid or no longer exists!"
       )
     );
     return;
