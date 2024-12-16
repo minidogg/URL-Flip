@@ -25,6 +25,11 @@ function SaveURLs() {
 setInterval(SaveURLs, 10 * 1000);
 SaveURLs();
 
+export function FixURL(link){
+  if(/^https?:\/\//.test(link))return link;
+  return "https://"+link
+}
+
 export function ValidateLink(link) {
     if (link.length > 300) return false;
     return /(https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\/[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?/.test(link);

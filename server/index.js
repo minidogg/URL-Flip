@@ -8,7 +8,7 @@ import express from "express";
 
 // Local Imports
 import { pages } from './pages.js';
-import {urlMap, recentlyCreatedLinksHTML, recentlyCreatedLinks, ValidateLink} from './url.js'
+import {urlMap, recentlyCreatedLinksHTML, recentlyCreatedLinks, ValidateLink, FixURL} from './url.js'
 import { randomNum, genRanString } from './util.js';
 
 // Setup express server
@@ -54,10 +54,6 @@ app.get("/", (req, res) => {
   res.send(pages.index.join(recentlyCreatedLinksHTML));
 });
 
-
-
-
-
 function ShortenLink(linkA, linkB, chance) {
   let code = undefined;
   while (code == undefined || urlMap.has(code)) {
@@ -83,8 +79,8 @@ app.post("/shorten", (req, res) => {
     return;
   }
   let shortenedLink = ShortenLink(
-    req.fields.linkA,
-    req.fields.linkB,
+    FixURL(req.fields.linkA),
+    FixURL(req.fields.linkB),
     Math.ceil(req.fields.chance)
   );
   if (shortenedLink == undefined) {
