@@ -13,7 +13,7 @@ export const pages = {
 
 let navHTML = ""
 function getPageHTML(filePath){
-  fs
+  return fs
   .readFileSync(path.resolve(filePath), "utf-8")
   .replace("<nav />", navHTML)
 }
