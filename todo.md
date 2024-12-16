@@ -1,2 +1,2 @@
-- CSS
 - Rate limiting
+- Icon
