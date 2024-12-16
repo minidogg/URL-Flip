@@ -116,6 +116,12 @@ app.get("/advertise", (req, res) => {
   res.send(pages.advertise.join(""));
 });
 
+// 404
+app.use((req,res,next)=>{
+  res.status(404)
+  res.send(pages.error.join("404! We couldn't find the resource you requested!"));
+})
+
 // Start the express server
 app.listen(port, () => {
   console.log(`Server started on port http://localhost:${port}`);
