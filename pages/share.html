@@ -10,28 +10,27 @@
   <body>
     <nav />
 
-    <div class="container">
-      <h1>URL Shortened Successfully!</h1>
-      <a href="/SHARE_LINK" class="shareLink">SHARE_LINK</a>
-      <hr />
-      <a href="/">OR shorten another URL</a>
-      <hr />
-      <div id="qrcode">
-        <p>
-          Enable JavaScript to view QR code. If you already have JavaScript
-          enabled, please wait.
-        </p>
+    <div class="tall-boi">
+      <div class="container">
+        <h1>URL Shortened Successfully!</h1>
+        <p class="shareLink">Your link to share: SHARE_LINK</a>
+        <hr />
+        <a href="/">OR shorten another URL</p>
+        <hr />
+        <div id="qrcode">
+          <p>
+            Enable JavaScript to view QR code. If you already have JavaScript
+            enabled, please wait.
+          </p>
+        </div>
+        <button id="downloadQrcode" style="display: none">
+          Download QR Code
+        </button>
       </div>
-      <button id="downloadQrcode" style="display: none">
-        Download QR Code
-      </button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <script>
-      let a = document.querySelector(".shareLink");
-      a.textContent = "Your link to share: " + a.href;
-
       let qrcodeEl = document.getElementById("qrcode");
       var typeNumber = 4;
       var errorCorrectionLevel = "L";

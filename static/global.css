@@ -15,6 +15,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   color: #f1f1f1;
+  overflow: hidden;
 }
 
 h1 {
@@ -91,7 +92,7 @@ input[type="submit"]:hover {
 
 .container {
   width: 100%;
-  max-width: fit-content;
+  max-width: 1200px;
   margin: 20px auto;
   padding: 30px;
   background-color: #282a36;
@@ -131,13 +132,18 @@ input[type="submit"]:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+.tall-boi {
+  height: 100vh;
+}
+
 hr {
   border: 1px solid #44475a;
   margin: 20px 0;
 }
 
 nav {
-  position: fixed;
+  margin-bottom: 25px;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
@@ -212,8 +218,8 @@ nav .navItem:hover {
 }
 
 .error-container {
-  width: 100%;
-  max-width: 600px;
+  width: fit-content;
+  max-width: 1000px;
   margin: 20px auto;
   padding: 30px;
   background-color: #282a36;
@@ -229,12 +235,14 @@ nav .navItem:hover {
 }
 
 .error-image {
-  max-width: 250px;
+  min-width: 900px;
+  max-width: 950px;
   margin-bottom: 20px;
+  max-height: 300px;
 }
 
 .error-code {
-  font-size: 3rem;
+  font-size: 3.2rem;
   font-weight: bold;
   color: #ff6b6b;
   margin-bottom: 10px;

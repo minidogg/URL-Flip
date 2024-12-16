@@ -23,8 +23,8 @@ const port = 3000;
 
 // Handling for shortened URLs
 app.use((req, res, next) => {
-  // Check if the URL starts with "q" because if it doesn't that means it isn't a shortened URL.
-  if (req.path[1] != "q") {
+  // Check if the URL starts with "q" or "i" because if it doesn't that means it isn't a shortened URL.
+  if (req.path[1] !== "q" && req.path[1] !== "i") {
     next();
     return;
   }
@@ -43,13 +43,18 @@ app.use((req, res, next) => {
     );
     return;
   }
-  // We generate a random number and then check if it's bigger than the chance which is in index 2
+
+  // Determine if it's an instant link
+  const isInstant = req.path[1] === "i";
+
   let pickedUrl = url[url[2] > 0 && randomNum(100) >= url[2] ? 1 : 0];
 
-  // Set cache to one minute so someone doesn't lose the link to an accidental refresh.
-  res.set("Cache-Control", "max-age=60");
-  // We send a joined pages.redirect because pages.redirect is an array that when joined with a URL, will have the URL appear in its HTML
-  res.send(pages.redirect.join(pickedUrl));
+  if (isInstant) {
+    res.redirect(pickedUrl);
+  } else {
+    res.set("Cache-Control", "max-age=60");
+    res.send(pages.redirect.join(pickedUrl));
+  }
 });
 
 // Send Static Files
@@ -65,42 +70,50 @@ function ShortenLink(linkA, linkB, chance) {
   while (code == undefined || urlMap.has(code)) {
     code = genRanString(8);
   }
-  code = "q" + code;
-  urlMap.set(code, [linkA, linkB, chance, Date.now()]);
+  const redirectCode = "q" + code; // Redirect link
+  const instantCode = "i" + code; // Instant link
 
-  return code;
+  // Store both links in the map
+  urlMap.set(redirectCode, [linkA, linkB, chance, Date.now()]);
+  urlMap.set(instantCode, [linkA, linkB, chance, Date.now(), true]); // Instant redirect flag
+
+  return { redirectCode, instantCode };
 }
 
 app.use(formidable());
 app.post("/shorten", (req, res) => {
-  if (
-    !ValidateLink(req.fields.linkA) ||
-    (req.fields.linkB != "" && !ValidateLink(req.fields.linkB))
-  ) {
-    res.status(500);
-    res.send(pages.error.join("An invalid link was provided!"));
-    return;
+  const { linkA, linkB, chance } = req.fields;
+
+  if (!ValidateLink(linkA) || (linkB && !ValidateLink(linkB))) {
+    return res
+      .status(400)
+      .send(pages.error.join("An invalid link was provided!"));
   }
-  if (req.fields.linkB == "") req.fields.chance = 0;
-  if (req.fields.chance > 100 || req.fields.chance < 0) {
-    res.status(500);
-    res.send(pages.error.join("Invalid form body provided!"));
-    return;
-  }
-  let shortenedLink = ShortenLink(
-    FixURL(req.fields.linkA),
-    FixURL(req.fields.linkB),
-    Math.ceil(req.fields.chance)
+
+  const linkBChance = linkB ? Math.max(0, Math.min(100, chance || 0)) : 0;
+
+  const { redirectCode, instantCode } = ShortenLink(
+    FixURL(linkA),
+    FixURL(linkB),
+    linkBChance
   );
-  if (shortenedLink == undefined) {
-    res.status(500);
-    res.send(
-      pages.error.join("Something went wrong when shortening your URL!")
-    );
-    return;
+
+  if (!redirectCode || !instantCode) {
+    return res
+      .status(500)
+      .send(pages.error.join("Something went wrong when shortening your URL!"));
   }
-  recentlyCreatedLinks.unshift(shortenedLink);
-  res.send(pages.share.join(shortenedLink));
+
+  recentlyCreatedLinks.unshift(redirectCode);
+  res.send(
+    pages.share.join(
+      `<a href="/${redirectCode}">/${redirectCode}</a> or instant link: <a href="/${instantCode}">/${instantCode}</a>`
+    )
+  );
+});
+
+app.get("/advertise", (req, res) => {
+  res.send(pages.advertise.join(""));
 });
 
 // Start the express server

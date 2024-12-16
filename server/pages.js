@@ -8,10 +8,14 @@ export const pages = {
   error: "",
   share: "",
   redirect: "",
+  advertise: "",
 };
 
 function UpdateDyanmicPages() {
-  let navHTML = fs.readFileSync(path.resolve("./static/nav.html"), "utf-8");
+  let navHTML = fs.readFileSync(
+    path.resolve("./static/components/nav.html"),
+    "utf-8"
+  );
   pages.index = fs
     .readFileSync(path.resolve("./pages/index.html"), "utf-8")
     .replace("<nav />", navHTML)
@@ -21,14 +25,21 @@ function UpdateDyanmicPages() {
     .readFileSync(path.resolve("./pages/error.html"), "utf-8")
     .replace("<nav />", navHTML)
     .split("ERROR"); // We split it at ERROR so then we can do errorHTML.join(errorMsg)
+
   pages.share = fs
     .readFileSync(path.resolve("./pages/share.html"), "utf-8")
     .replace("<nav />", navHTML)
     .split("SHARE_LINK");
+
   pages.redirect = fs
     .readFileSync(path.resolve("./pages/redirect.html"), "utf-8")
     .replace("<nav />", navHTML)
     .split("REDIRECT_LINK");
+
+  pages.advertise = fs
+    .readFileSync(path.resolve("./pages/advertise.html"), "utf-8")
+    .replace("<nav />", navHTML)
+    .split("LAST_LINKS");
 }
 UpdateDyanmicPages();
 let havePagesUpdated = false;
