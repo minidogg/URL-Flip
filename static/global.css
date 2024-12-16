@@ -154,3 +154,10 @@ a.navItem{
 .navIcon{
   height:2.3rem;
 }
+
+.linkQrcode{
+  width: 300px;
+  height: 300px;
+  display: block;
+  margin:auto;
+}

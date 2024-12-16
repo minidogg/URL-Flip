@@ -6,6 +6,7 @@
     <title>URL Flip - Share</title>
 
     <link rel="stylesheet" href="/global.css" />
+
   </head>
   <body>
     <nav />
@@ -15,11 +16,38 @@
       <a href="/SHARE_LINK" class="shareLink">SHARE_LINK</a>
       <hr />
       <a href="/">OR shorten another URL</a>
+      <hr>
+      <div id="qrcode">
+        <p>Enable JavaScript to view QR code. If you already have JavaScript enabled, please wait.</p>
+      </div>
+      <button id="downloadQrcode" style="display:none">Download QR Code</button>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <script>
       let a = document.querySelector(".shareLink");
       a.textContent = "Your link to share: " + a.href;
+
+      let qrcodeEl = document.getElementById("qrcode");
+      var typeNumber = 4;
+      var errorCorrectionLevel = 'L';
+      var qr = qrcode(typeNumber, errorCorrectionLevel);
+      qr.addData('Hi!');
+      qr.make();
+      qrcodeEl.innerHTML = qr.createImgTag();
+      qrcodeEl.querySelector("img").classList.add("linkQrcode")
+
+      let downloadButton = document.querySelector("#downloadQrcode")
+      downloadButton.addEventListener("click", () => {
+        var link = document.createElement('a');
+        link.href = qrcodeEl.querySelector("img").src;
+        link.setAttribute('download', 'qrcode.png');
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      downloadButton.style.display = "block"
     </script>
   </body>
 </html>
