@@ -1,3 +1,4 @@
+/* Global Styles */
 * {
   font-family: "Inter", Arial, Helvetica, sans-serif;
   color: #f1f1f1;
@@ -18,6 +19,7 @@ body {
   overflow: hidden;
 }
 
+/* Typography */
 h1 {
   text-align: center;
   font-size: 3rem;
@@ -32,6 +34,13 @@ h2 {
   padding-bottom: 15px;
 }
 
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+}
+
+/* Links */
 a {
   color: #82aaff;
   text-decoration: none;
@@ -43,9 +52,9 @@ a:hover {
   color: #ffcb6b;
 }
 
+/* Inputs */
 input {
   width: 100%;
-  max-width: 300px;
   font-size: 1rem;
   padding: 10px;
   margin: 0px auto;
@@ -54,12 +63,6 @@ input {
   border-radius: 5px;
   background-color: #282a36;
   color: #f8f8f2;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 1.2rem;
 }
 
 input::placeholder {
@@ -71,6 +74,7 @@ input:focus {
   border-color: #ff79c6;
 }
 
+/* Buttons */
 button,
 input[type="submit"] {
   font-size: 1rem;
@@ -90,6 +94,7 @@ input[type="submit"]:hover {
   background-color: #00ba5a;
 }
 
+/* Containers */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -123,6 +128,7 @@ input[type="submit"]:hover {
   color: #f1f1f1;
 }
 
+/* Miscellaneous */
 .advertise {
   width: 100%;
   height: 50vh;
@@ -141,6 +147,7 @@ hr {
   margin: 20px 0;
 }
 
+/* Navigation */
 nav {
   margin-bottom: 25px;
   position: sticky;
@@ -172,9 +179,8 @@ nav .navItem {
   font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
-  margin: 0 20px;
-  transition: color 0.3s ease, transform 0.2s ease;
   margin: 0px 10px;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 nav .navItem:hover {
@@ -182,6 +188,7 @@ nav .navItem:hover {
   transform: scale(1.05);
 }
 
+/* Media Queries */
 @media (max-width: 768px) {
   nav {
     padding: 10px 20px;
@@ -204,6 +211,7 @@ nav .navItem:hover {
   }
 }
 
+/* Recent Links */
 .recentLinks {
   margin-top: 20px;
   display: flex;
@@ -217,6 +225,7 @@ nav .navItem:hover {
   margin: auto;
 }
 
+/* Error Page */
 .error-container {
   width: fit-content;
   max-width: 1000px;
