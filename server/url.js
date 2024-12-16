@@ -2,17 +2,21 @@
 import path from "path";
 import fs from "fs";
 
+// Local Imports
 export let urlMap = new Map();
 let urlJsonPath = path.resolve("./url.json");
 if (fs.existsSync(urlJsonPath)) LoadURLs();
 
+// Recently created links
 export let recentlyCreatedLinks = [];
 export let recentlyCreatedLinksHTML = "";
 
+// Load the URLs
 function LoadURLs() {
   let obj = JSON.parse(fs.readFileSync(urlJsonPath, "utf-8"));
   urlMap = new Map(Object.entries(obj));
 }
+// Save the URLs
 function SaveURLs() {
   let obj = Object.fromEntries(urlMap);
   fs.writeFileSync(urlJsonPath, JSON.stringify(obj), "utf-8");
@@ -25,14 +29,18 @@ function SaveURLs() {
 setInterval(SaveURLs, 10 * 1000);
 SaveURLs();
 
+// Fix the URL
 export function FixURL(link) {
-  if (/^https?:\/\//.test(link)) return link;
-  return "https://" + link;
+  return link.startsWith("http://") || link.startsWith("https://")
+    ? link
+    : `https://${link}`;
 }
 
+// Check if the link is valid
 export function ValidateLink(link) {
-  if (link.length > 1024) return false;
-  return /(https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\/[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?/.test(
-    link
+  const url = new URL(link, "http://example.com");
+  return (
+    url.protocol === "http:" ||
+    (url.protocol === "https:" && url.hostname !== "example.com")
   );
 }

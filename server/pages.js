@@ -24,7 +24,7 @@ function UpdateDyanmicPages() {
   pages.error = fs
     .readFileSync(path.resolve("./pages/error.html"), "utf-8")
     .replace("<nav />", navHTML)
-    .split("ERROR"); // We split it at ERROR so then we can do errorHTML.join(errorMsg)
+    .split("[Error-Code]");
 
   pages.share = fs
     .readFileSync(path.resolve("./pages/share.html"), "utf-8")
@@ -41,12 +41,18 @@ function UpdateDyanmicPages() {
     .replace("<nav />", navHTML)
     .split("LAST_LINKS");
 }
+
+// Update the pages for first time
 UpdateDyanmicPages();
+
+// Watch for page updates
 let havePagesUpdated = false;
 fs.watch("./pages", { recursive: true }, (eventName, fileName) => {
   console.log("Page updated: " + fileName);
   havePagesUpdated = true;
 });
+
+// Update the pages every second
 setInterval(() => {
   if (havePagesUpdated == true) {
     havePagesUpdated = false;
