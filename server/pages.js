@@ -11,35 +11,27 @@ export const pages = {
   advertise: "",
 };
 
+let navHTML = ""
+function getPageHTML(filePath){
+  fs
+  .readFileSync(path.resolve(filePath), "utf-8")
+  .replace("<nav />", navHTML)
+}
 function UpdateDyanmicPages() {
-  let navHTML = fs.readFileSync(
+  navHTML = fs.readFileSync(
     path.resolve("./static/components/nav.html"),
     "utf-8"
   );
-  pages.index = fs
-    .readFileSync(path.resolve("./pages/index.html"), "utf-8")
-    .replace("<nav />", navHTML)
-    .split("LAST_LINKS");
 
-  pages.error = fs
-    .readFileSync(path.resolve("./pages/error.html"), "utf-8")
-    .replace("<nav />", navHTML)
-    .split("[Error-Code]");
+  pages.index = getPageHTML("./pages/index.html").split("LAST_LINKS");
 
-  pages.share = fs
-    .readFileSync(path.resolve("./pages/share.html"), "utf-8")
-    .replace("<nav />", navHTML)
-    .split("SHARE_LINK");
+  pages.error = getPageHTML("./pages/error.html").split("[Error-Code]");
 
-  pages.redirect = fs
-    .readFileSync(path.resolve("./pages/redirect.html"), "utf-8")
-    .replace("<nav />", navHTML)
-    .split("REDIRECT_LINK");
+  pages.share = getPageHTML("./pages/share.html").split("SHARE_LINK");
 
-  pages.advertise = fs
-    .readFileSync(path.resolve("./pages/advertise.html"), "utf-8")
-    .replace("<nav />", navHTML)
-    .split("LAST_LINKS");
+  pages.redirect = getPageHTML("./pages/redirect.html").split("REDIRECT_LINK");
+
+  pages.advertise = getPageHTML("./pages/advertise.html").split("LAST_LINKS");
 }
 
 // Update the pages for first time
