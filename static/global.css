@@ -150,3 +150,7 @@ a.navItem{
   display:flex;
   flex-direction:column;
 }
+
+.navIcon{
+  height:2.3rem;
+}
