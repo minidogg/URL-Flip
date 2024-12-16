@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server/index.js"
+    "dev": "nodemon server/index.js",
+    "prod": "pm2 start server/index.js",
+    "prod-stop": "pm2 stop server/index.js"
   },
   "keywords": [],
   "author": "",
