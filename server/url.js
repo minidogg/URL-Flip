@@ -1,6 +1,6 @@
 // Built-In Imports
-import path from 'path';
-import fs from 'fs';
+import path from "path";
+import fs from "fs";
 
 export let urlMap = new Map();
 let urlJsonPath = path.resolve("./url.json");
@@ -25,12 +25,14 @@ function SaveURLs() {
 setInterval(SaveURLs, 10 * 1000);
 SaveURLs();
 
-export function FixURL(link){
-  if(/^https?:\/\//.test(link))return link;
-  return "https://"+link
+export function FixURL(link) {
+  if (/^https?:\/\//.test(link)) return link;
+  return "https://" + link;
 }
 
 export function ValidateLink(link) {
-    if (link.length > 1024) return false;
-    return /(https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\/[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?/.test(link);
+  if (link.length > 1024) return false;
+  return /(https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\/[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?/.test(
+    link
+  );
 }

@@ -1,6 +1,6 @@
 // Built-In Imports
-import path from 'path';
-import fs from 'fs';
+import path from "path";
+import fs from "fs";
 
 // We don't need frameworks or templating engines where we are going.
 export const pages = {
@@ -10,9 +10,8 @@ export const pages = {
   redirect: "",
 };
 
-
 function UpdateDyanmicPages() {
-  let navHTML = fs.readFileSync(path.resolve("./static/nav.html"), "utf-8")
+  let navHTML = fs.readFileSync(path.resolve("./static/nav.html"), "utf-8");
   pages.index = fs
     .readFileSync(path.resolve("./pages/index.html"), "utf-8")
     .replace("<nav />", navHTML)
@@ -30,8 +29,6 @@ function UpdateDyanmicPages() {
     .readFileSync(path.resolve("./pages/redirect.html"), "utf-8")
     .replace("<nav />", navHTML)
     .split("REDIRECT_LINK");
-
-
 }
 UpdateDyanmicPages();
 let havePagesUpdated = false;

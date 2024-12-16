@@ -3,46 +3,54 @@ Used template from here for guidance in making this contributing.md: https://gis
 # Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners of this repository before making a change. 
+email, or any other method with the owners of this repository before making a change.
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
 ## Setup
+
 ### Downloading via git
 
 ### Prerequisites
+
 - Node.js. Known compatible versions:
-    - v20.18.0
-- NPM. Known compatible versions: 
-    - 10.8.2
+  - v20.18.0
+- NPM. Known compatible versions:
+  - 10.8.2
 
 ### Installing packages
-Run ```npm i``` to install the dependencies.  
+
+Run `npm i` to install the dependencies.  
 This shouldn't take very long as there are only 2 main packages excluding the dependency dependencies.
 
 ### Running for development
-Running it for development is as simple as running ```npm run dev```
+
+Running it for development is as simple as running `npm run dev`
 
 ### Running production
+
 Running it for development is a little more complicated.
-To run for production you will have to install pm2 by running the following: ```npm i pm2 -g```.  
-Once pm2 is done installing it is as simple as running ```npm run prod```
-If you need to stop pm2 you can run ```npm run prod-stop``` 
+To run for production you will have to install pm2 by running the following: `npm i pm2 -g`.  
+Once pm2 is done installing it is as simple as running `npm run prod`
+If you need to stop pm2 you can run `npm run prod-stop`
 
 ### Port
+
 The default port is port 3000.
 
 ## Standards
+
 All code written should follow the following rules:
+
 - No client-side JavaScript should be required for the front end to function.
 - Try to keep code organized and as isolated as possible.
 - Don't rely on cookies for any kind of security.
 
 ## Pull Request Process
 
-1. Ensure any install or build dependencies are removed before the end of the layer when doing a 
+1. Ensure any install or build dependencies are removed before the end of the layer when doing a
    build.
-2. Update any docs that may be affected by your changes. For example, changing 
+2. Update any docs that may be affected by your changes. For example, changing
 3. Increase the version numbers in any files referencing it and the README.md to the new version that this
    Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
 4. Let anyone who you are aware of currently working of your changes. This way they can be ready for the changes.
