@@ -13,9 +13,9 @@
     <div class="tall-boi">
       <div class="container">
         <h1>URL Shortened Successfully!</h1>
-        <p class="shareLink">Your link to share: SHARE_LINK</a>
+        <p class="shareLink">Your link to share: SHARE_LINK</p>
         <hr />
-        <a href="/">OR shorten another URL</p>
+        <a href="/">OR shorten another URL</a>
         <hr />
         <div id="qrcode">
           <p>
@@ -31,33 +31,45 @@
 
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <script>
-      try{
-      let a = document.querySelector(".shareLink").querySelector("a")
-      let qrcodeEl = document.getElementById("qrcode");
-      var typeNumber = 4;
-      var errorCorrectionLevel = "L";
-      var qr = qrcode(typeNumber, errorCorrectionLevel);
+      try {
+        // Select the link element within the shareLink class
+        let a = document.querySelector(".shareLink").querySelector("a");
+        // Get the QR code container element
+        let qrcodeEl = document.getElementById("qrcode");
+        // Define QR code type number and error correction level
+        var typeNumber = 4;
+        var errorCorrectionLevel = "L";
+        // Create a new QR code instance
+        var qr = qrcode(typeNumber, errorCorrectionLevel);
 
-      qr.addData(a.href);
+        // Add the link URL to the QR code data
+        qr.addData(a.href);
 
-      qr.make();
-      qrcodeEl.innerHTML = qr.createImgTag();
-      qrcodeEl.querySelector("img").classList.add("linkQrcode");
+        // Generate the QR code
+        qr.make();
+        // Set the QR code image inside the container
+        qrcodeEl.innerHTML = qr.createImgTag();
+        // Add a class to the QR code image for styling
+        qrcodeEl.querySelector("img").classList.add("linkQrcode");
 
-      let downloadButton = document.querySelector("#downloadQrcode");
-      downloadButton.addEventListener("click", () => {
-        var link = document.createElement("a");
-        link.href = qrcodeEl.querySelector("img").src;
-        link.setAttribute("download", "qrcode.png");
-        link.style.display = "none";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      });
-      downloadButton.style.display = "block";
-    }catch(err){
-
-    }
+        // Select the download button
+        let downloadButton = document.querySelector("#downloadQrcode");
+        // Add click event listener to download the QR code
+        downloadButton.addEventListener("click", () => {
+          var link = document.createElement("a");
+          // Set the download link to the QR code image source
+          link.href = qrcodeEl.querySelector("img").src;
+          link.setAttribute("download", "qrcode.png");
+          link.style.display = "none";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+        // Show the download button
+        downloadButton.style.display = "block";
+      } catch (err) {
+        // Handle any errors silently
+      }
     </script>
   </body>
 </html>
