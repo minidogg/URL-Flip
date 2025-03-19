@@ -9,7 +9,6 @@ URL Flip is a tool for shortening 2 URLs at once that it randomly FLIPS between.
 # Abstractmelon
 - Developer
 - Domain Owner
-- Primary Server Host
 
 # ReallyBadDev
 - Logo Designer
