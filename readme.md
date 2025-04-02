@@ -3,12 +3,8 @@ URL Flip is a tool for shortening 2 URLs at once that it randomly FLIPS between.
 
 # Credit
 ## Unluckycrafter (minidogg)
-- Founder of URL Shortener
+- Founder of URL Flip
 - Head Developer
 
 # Abstractmelon
 - Developer
-- Domain Owner
-
-# ReallyBadDev
-- Logo Designer
